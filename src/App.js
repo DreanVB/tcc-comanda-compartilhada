@@ -1,23 +1,42 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Navbar from "./components/Navbar";
+import React, { useState } from "react";
+
+
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("home");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState({
+    name: "Teste",
+    email: "teste@email.com",
+    image: "",
+  });
+  const handlePageChange = (page) => {
+    if (page === "profile" && !isAuthenticated) {
+      setCurrentPage("auth");
+    } else {
+      setCurrentPage(page);
+    }
+  };
+  
+  
+
+  
+
+ 
+
+  
+
+  
+
+  
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Navbar onNavigate={handlePageChange} user={user} />
     </div>
   );
 }
