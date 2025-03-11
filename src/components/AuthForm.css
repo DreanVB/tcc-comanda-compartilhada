@@ -3,8 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background-image: url('../assets/background2.png'); */
-  
+  background-image: url('../assets/background2.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,7 +23,7 @@
 }
 
 .panel {
-  display: flex;
+  display: table-column;
   width: 800px;
   height: 500px;
   box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
@@ -47,8 +46,8 @@
 }
 
 .side-panel {
-  width: 40%;
-  background: #ffb6004d;
+  width: 100%;
+  background: #ff9000;
   color: white;
   display: flex;
   flex-direction: column;
@@ -57,6 +56,7 @@
   padding: 20px;
   text-align: center;
   animation: fadeInLeft 1.5s ease-in-out;
+  height: 40%;
 }
 
 @keyframes fadeInLeft {
@@ -167,7 +167,7 @@
 }
 
 .form-panel {
-  width: 60%;
+  width: 100%;
   background: rgba(255, 255, 255, 0.1);
   padding: 40px;
   display: flex;
@@ -177,6 +177,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   animation: fadeInRight 1.5s ease-in-out;
+  height: 60%;
 }
 
 @keyframes fadeInRight {
@@ -261,7 +262,7 @@ input {
 
 input:focus {
   outline: none;
-  box-shadow: 0 0 8px rgba(52, 199, 89, 0.5);
+  box-shadow: 0 0 8px rgba(223, 120, 3, 0.5);
 }
 
 .submit-btn {
@@ -315,7 +316,7 @@ input:focus {
 /* Efeito de Foco para Acessibilidade */
 .submit-btn:focus {
   outline: none;
-  box-shadow: 0 0 8px #c7ac3480;
+  box-shadow: 0 0 8px #e4970880;
 }
 
 .user-type-container {
@@ -387,5 +388,5 @@ input:focus {
 
 .user-type-btn:focus {
   outline: none;
-  box-shadow: 0 0 8px rgba(199, 177, 52, 0.5);
+  box-shadow: 0 0 8px rgba(218, 168, 6, 0.5);
 }
