@@ -56,7 +56,7 @@
   padding: 20px;
   text-align: center;
   animation: fadeInLeft 1.5s ease-in-out;
-  height: 40%;
+  height: 35%;
 }
 
 @keyframes fadeInLeft {
@@ -105,7 +105,7 @@
 .side-panel p {
   font-size: 18px;
   margin-bottom: 20px;
-  color: #e0e0e0;
+  color: #ffffff;
 }
 
 .toggle-btn {
@@ -177,7 +177,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   animation: fadeInRight 1.5s ease-in-out;
-  height: 60%;
+  height: 65%;
 }
 
 @keyframes fadeInRight {
@@ -202,7 +202,7 @@
 
 .form-panel h2 {
   font-size: 26px;
-  color: #333;
+  color: #ffffff;
   margin-bottom: 20px;
 }
 

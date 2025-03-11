@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
-import React, { useState } from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
 // import CarrinhoList from './components/CarrinhoList';
 
@@ -9,6 +9,7 @@ import AuthForm from './components/AuthForm';
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
+  const [Usuarios, setUsuarios]= useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({
     name: "Teste",
@@ -17,9 +18,13 @@ function App() {
   });
   const [notification, setNotification] = useState(null); // Estado para notificação
 
+  useEffect(() => {
+    axios.get('https://suaapi.com/api/usuarios')
+      .then(response => setUsuarios(response.data))
+      .catch(error => console.error('Erro na API:', error));
+  }, []);
   const handleLogin = async (email, password) => {
     const hashedPassword = generateHash(password);
-
     // Busca o usuário no banco
     // const { data, error } = await supabase
     //   .from("user")
