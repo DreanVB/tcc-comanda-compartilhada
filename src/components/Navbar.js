@@ -1,5 +1,6 @@
 import React from 'react';
 import './Navbar.css';
+
 // import logo from '../assets/logo2.png';
 
 function Navbar({ onNavigate, user, isAuthenticated }) {
@@ -31,23 +32,25 @@ function Navbar({ onNavigate, user, isAuthenticated }) {
 
             <ul className="nav-links">
                 <li>
-                    <button onClick={() => onNavigate('home')}>Página inicial</button>
+                    <button className="profile-button" onClick={handleProfileClick}>
+                        {user.image ? (
+                            <img src={user.image} alt="Perfil do Usuário" className="profile-image" />
+                        ) : (
+                            <span className="profile-initials">{getUserInitials()}</span>
+                        )}
+                    </button>
                 </li>
                 <li>
-                    <button onClick={() => onNavigate('images')}>Listagem de Imagens</button>
+                    <button onClick={() => onNavigate('itens')}>Itens</button>
                 </li>
                 <li>
-                    <button onClick={() => onNavigate('addProposal')}>Adicionar Proposta</button>
+                    <button onClick={() => onNavigate('comanda')}>Comanda</button>
+                </li>
+                <li>
+                    <button onClick={() => onNavigate('CarrinhoList')}>Carrinho</button>
                 </li>
             </ul>
             <div className="profile-container">
-                <button className="profile-button" onClick={handleProfileClick}>
-                    {user.image ? (
-                        <img src={user.image} alt="Perfil do Usuário" className="profile-image" />
-                    ) : (
-                        <span className="profile-initials">{getUserInitials()}</span>
-                    )}
-                </button>
             </div>
         </nav>
     );

@@ -1,7 +1,9 @@
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Navbar from "./components/Navbar";
+
 import React, { useState } from "react";
+import AuthForm from './components/AuthForm';
+// import CarrinhoList from './components/CarrinhoList';
 
 
 
@@ -13,32 +15,62 @@ function App() {
     email: "teste@email.com",
     image: "",
   });
-  const handlePageChange = (page) => {
-    if (page === "profile" && !isAuthenticated) {
-      setCurrentPage("auth");
-    } else {
-      setCurrentPage(page);
-    }
+  const [notification, setNotification] = useState(null); // Estado para notificação
+
+  const handleLogin = async (email, password) => {
+    const hashedPassword = generateHash(password);
+
+    // Busca o usuário no banco
+    // const { data, error } = await supabase
+    //   .from("user")
+    //   .select("*") // Seleciona todos os campos
+    //   .eq("email", email)
+    //   .eq("password", hashedPassword);
+
+    // if (error) {
+    //   console.error("Erro ao buscar o usuário:", error);
+    //   setNotification({ message: "Erro ao fazer login.", type: "error" });
+    //   return;
+    // }
+
+    // // Verifica se o usuário existe
+    // if (!data || data.length === 0) {
+    //   setNotification({
+    //     message: "Email e/ou senha incorretos.",
+    //     type: "error",
+    //   });
+    //   return;
+    // }
+
+    // // Extrai os dados do usuário (primeiro elemento do array)
+    // const loggedUser = data[0];
+    // // Armazena o ID do usuário no sessionStorage
+    // sessionStorage.setItem("user_id", loggedUser.id);
+    // // Define o estado com as informações do usuário
+    // setUser({
+    //   name: loggedUser.name || "user", // Usa o nome do banco ou um padrão
+    //   email: loggedUser.email,
+    //   image: loggedUser.image || "", // Se houver imagem armazenada
+    // });
+
+    // setIsAuthenticated(true);
+    // setCurrentPage("profile");
   };
-  
-  
+  const generateHash = (inputText) => {
+    // const sha1Hash = CryptoJS.SHA1(inputText).toString();
+    // return sha1Hash;
+  };
 
-  
 
- 
 
-  
 
-  
 
-  
-
-  
   return (
     <div className='App'>
-      <Navbar onNavigate={handlePageChange} user={user} />
-    </div>
-  );
+    {currentPage === "home" && (
+      <AuthForm onLogin={handleLogin} />
+    )}</div>
+  )
 }
-
-export default App;
+  
+  export default App;
