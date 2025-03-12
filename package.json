@@ -1,4 +1,6 @@
 {
+  "proxy": "https://apicardapiodigital-dagph7bqfhg4cbbc.brazilsouth-01.azurewebsites.net",
+
   "name": "comanda-compartilhada",
   "version": "0.1.0",
   "private": true,

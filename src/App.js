@@ -3,9 +3,10 @@ import './App.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
-// import CarrinhoList from './components/CarrinhoList';
-
-
+// {
+//   "email": "cardapiodigital@gmail.com",
+//   "senha": "admin@123"
+// }
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -18,21 +19,42 @@ function App() {
   });
   const [notification, setNotification] = useState(null); // Estado para notificação
 
-  const handleLogin = async (email, senha) => {    
+  const handleLogin = async (email, senha) => {
     try {
-      const resposta = await axios.post('https://apicardapiodigital-dagph7bqfhg4cbbc.brazilsouth-01.azurewebsites.net/api/Auth', {
-        "email": email,
-        "senha": senha
+      const response = await axios.post("/api/Auth", {
+        email: email,
+        senha: senha
       });
-      console.log(resposta.data.token)
-      localStorage.setItem('token', resposta.data.token);
-      setNotification('Login realizado com sucesso!');
-    } catch (erro) {
-      console.error('Erro ao fazer login:', erro);
-      setNotification('Email ou senha inválidos.');
+  
+      console.log("✅ Login bem-sucedido:", response.data);
+      // Exemplo: salvar token ou usuário logado
+      setIsAuthenticated(true);
+      setUser(response.data); // ou ajuste conforme o formato do retorno
+      localStorage.setItem("token", response.token);
+      fetchAdminProfile(response.token)  
+    } catch (error) {
+      console.error("❌ Erro no login:", error);
+      setNotification("Usuário ou senha inválidos");
     }
-    
   };
+  const fetchAdminProfile = async (token) => {
+    try {
+      const response = await axios.get(
+        '/swagger/index.html', // Substitua o URL pelo endpoint real
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Perfil do Administrador:", response.data);
+      setUser(response.data); // Atualizando dados do usuário (admin)
+    } catch (error) {
+      console.error("❌ Erro ao buscar perfil de admin:", error);
+      setNotification("Erro ao acessar perfil de administrador");
+    }
+  };
+  
   
   return (
     <div className='App'>
