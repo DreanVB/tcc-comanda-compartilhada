@@ -246,7 +246,7 @@ form label {
   content: '✉️';
 }
 
-.password-icon::before {
+.senha-icon::before {
   content: '🔒';
 }
 

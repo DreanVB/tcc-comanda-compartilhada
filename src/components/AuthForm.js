@@ -6,16 +6,16 @@ import './AuthForm.css';
 function AuthForm({onLogin}) {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [senha, setSenha] = useState('');
 
   const handleToggleForm = () => {
     setIsLogin(!isLogin);
     setEmail('');
-    setPassword('');
+    setSenha('');
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(email, password);
+    onLogin(email,senha);
   }
 
 
@@ -43,12 +43,12 @@ function AuthForm({onLogin}) {
               />
             </label>
             <label>
-              <i className="icon password-icon"></i>
+              <i className="icon senha-icon"></i>
               <input
                 type="password"
                 placeholder="Senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
                 required
               />
             </label>

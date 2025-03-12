@@ -18,58 +18,22 @@ function App() {
   });
   const [notification, setNotification] = useState(null); // Estado para notificação
 
-  useEffect(() => {
-    axios.get('https://suaapi.com/api/usuarios')
-      .then(response => setUsuarios(response.data))
-      .catch(error => console.error('Erro na API:', error));
-  }, []);
-  const handleLogin = async (email, password) => {
-    const hashedPassword = generateHash(password);
-    // Busca o usuário no banco
-    // const { data, error } = await supabase
-    //   .from("user")
-    //   .select("*") // Seleciona todos os campos
-    //   .eq("email", email)
-    //   .eq("password", hashedPassword);
-
-    // if (error) {
-    //   console.error("Erro ao buscar o usuário:", error);
-    //   setNotification({ message: "Erro ao fazer login.", type: "error" });
-    //   return;
-    // }
-
-    // // Verifica se o usuário existe
-    // if (!data || data.length === 0) {
-    //   setNotification({
-    //     message: "Email e/ou senha incorretos.",
-    //     type: "error",
-    //   });
-    //   return;
-    // }
-
-    // // Extrai os dados do usuário (primeiro elemento do array)
-    // const loggedUser = data[0];
-    // // Armazena o ID do usuário no sessionStorage
-    // sessionStorage.setItem("user_id", loggedUser.id);
-    // // Define o estado com as informações do usuário
-    // setUser({
-    //   name: loggedUser.name || "user", // Usa o nome do banco ou um padrão
-    //   email: loggedUser.email,
-    //   image: loggedUser.image || "", // Se houver imagem armazenada
-    // });
-
-    // setIsAuthenticated(true);
-    // setCurrentPage("profile");
+  const handleLogin = async (email, senha) => {    
+    try {
+      const resposta = await axios.post('https://apicardapiodigital-dagph7bqfhg4cbbc.brazilsouth-01.azurewebsites.net/api/Auth', {
+        "email": email,
+        "senha": senha
+      });
+      console.log(resposta.data.token)
+      localStorage.setItem('token', resposta.data.token);
+      setNotification('Login realizado com sucesso!');
+    } catch (erro) {
+      console.error('Erro ao fazer login:', erro);
+      setNotification('Email ou senha inválidos.');
+    }
+    
   };
-  const generateHash = (inputText) => {
-    // const sha1Hash = CryptoJS.SHA1(inputText).toString();
-    // return sha1Hash;
-  };
-
-
-
-
-
+  
   return (
     <div className='App'>
     {currentPage === "home" && (
