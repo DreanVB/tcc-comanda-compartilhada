@@ -3,21 +3,17 @@ import './App.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
-// {
-//   "email": "cardapiodigital@gmail.com",
-//   "senha": "admin@123"
-// }
+import page from './components/AuthForm';
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
-  const [Usuarios, setUsuarios]= useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState('');
   const [user, setUser] = useState({
     name: "Teste",
     email: "teste@email.com",
     image: "",
   });
-  const [notification, setNotification] = useState(null); // Estado para notificação
+  const [notification, setNotification] = useState(null);
 
   const handleLogin = async (email, senha) => {
     try {
@@ -25,43 +21,57 @@ function App() {
         email: email,
         senha: senha
       });
-  
+
       console.log("✅ Login bem-sucedido:", response.data);
-      // Exemplo: salvar token ou usuário logado
-      setIsAuthenticated(true);
-      setUser(response.data); // ou ajuste conforme o formato do retorno
-      localStorage.setItem("token", response.token);
-      fetchAdminProfile(response.token)  
+      setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
+      setUser(response.data.usuario || {}); // ajuste se a API devolver diferente
+
     } catch (error) {
       console.error("❌ Erro no login:", error);
-      setNotification("Usuário ou senha inválidos");
+      // setNotification("Usuário ou senha inválidos");
     }
   };
-  const fetchAdminProfile = async (token) => {
-    try {
-      const response = await axios.get(
-        '/swagger/index.html', // Substitua o URL pelo endpoint real
-        {
+
+  // Faz a requisição protegida somente quando o token muda
+  useEffect(() => {
+    if (!token) return;
+
+    const fetchDadosProtegidos = async () => {
+      try {
+        const response = await fetch("/api/Restaurante/meus-dados", {
+          method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log("Perfil do Administrador:", response.data);
-      setUser(response.data); // Atualizando dados do usuário (admin)
-    } catch (error) {
-      console.error("❌ Erro ao buscar perfil de admin:", error);
-      setNotification("Erro ao acessar perfil de administrador");
-    }
-  };
-  
-  
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          }
+        });
+
+        if (!response.ok) throw new Error(`Erro: ${response.status}`);
+        const result = await response.json();
+        console.log("🔐 Dados protegidos:", result);
+        // setCurrentPage('pageInicial')
+    
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    };
+
+    fetchDadosProtegidos();
+  }, [token]); // executa quando o token for atualizado
+
   return (
     <div className='App'>
-    {currentPage === "home" && (
-      <AuthForm onLogin={handleLogin} />
-    )}</div>
-  )
+      {notification && <p>{notification}</p>}
+
+      {currentPage === "home" && (
+        <AuthForm onLogin={handleLogin} />
+      )}
+      {currentPage === "pageInicial" && (
+        <AuthForm onLogin={page} />
+      )}
+    </div>
+  );
 }
-  
-  export default App;
+
+export default App;
