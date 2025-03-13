@@ -3,15 +3,15 @@ import './App.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
-import page from './components/AuthForm';
+import PageInicial from './components/PageInicial';
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [token, setToken] = useState('');
   const [user, setUser] = useState({
+    id: '',
     name: "Teste",
     email: "teste@email.com",
-    image: "",
   });
   const [notification, setNotification] = useState(null);
 
@@ -24,16 +24,11 @@ function App() {
 
       console.log("✅ Login bem-sucedido:", response.data);
       setToken(response.data.token);
-      localStorage.setItem("token", response.data.token);
-      setUser(response.data.usuario || {}); // ajuste se a API devolver diferente
-
     } catch (error) {
       console.error("❌ Erro no login:", error);
       // setNotification("Usuário ou senha inválidos");
     }
   };
-
-  // Faz a requisição protegida somente quando o token muda
   useEffect(() => {
     if (!token) return;
 
@@ -50,15 +45,18 @@ function App() {
         if (!response.ok) throw new Error(`Erro: ${response.status}`);
         const result = await response.json();
         console.log("🔐 Dados protegidos:", result);
-        // setCurrentPage('pageInicial')
-    
+        setUser(result)
+        setCurrentPage('PageInicial')
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
     };
 
     fetchDadosProtegidos();
-  }, [token]); // executa quando o token for atualizado
+  }, [token]);
+
+  // Faz a requisição protegida somente quando o token muda
+  // executa quando o token for atualizado
 
   return (
     <div className='App'>
@@ -67,9 +65,7 @@ function App() {
       {currentPage === "home" && (
         <AuthForm onLogin={handleLogin} />
       )}
-      {currentPage === "pageInicial" && (
-        <AuthForm onLogin={page} />
-      )}
+      {currentPage === "PageInicial" && <PageInicial user={user} token={token}/>}
     </div>
   );
 }
