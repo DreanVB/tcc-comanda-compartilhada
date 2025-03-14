@@ -3,7 +3,7 @@ import './App.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
-import PageInicial from './components/PageInicial';
+import RestauranteList from './components/RestauranteList';
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -45,8 +45,11 @@ function App() {
         if (!response.ok) throw new Error(`Erro: ${response.status}`);
         const result = await response.json();
         console.log("🔐 Dados protegidos:", result);
-        setUser(result)
-        setCurrentPage('PageInicial')
+        console.log(result.id)
+        if(result.id==1){
+          setUser(result)
+          setCurrentPage('list')
+        }
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
       }
@@ -65,7 +68,7 @@ function App() {
       {currentPage === "home" && (
         <AuthForm onLogin={handleLogin} />
       )}
-      {currentPage === "PageInicial" && <PageInicial user={user} token={token}/>}
+      {currentPage === "list" && <RestauranteList user={user} token={token}/>}
     </div>
   );
 }
