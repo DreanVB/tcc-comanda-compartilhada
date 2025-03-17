@@ -2,6 +2,7 @@
 .image-list-container {
     padding: 50px;
     text-align: center;
+    background-image: url('../assets/background2.png');
 }
 
 /* Contêiner flexbox para o ícone, título e subtítulo */
@@ -132,4 +133,7 @@
         flex-basis: calc(100% - 30px);
         /* Exibe 1 card por linha em telas menores */
     }
+}
+.btn{
+    margin-left: 5px;
 }
