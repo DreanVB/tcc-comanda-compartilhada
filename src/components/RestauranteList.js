@@ -10,7 +10,7 @@ function RestauranteList(user) {
 
 
     return (
-        <div className="rest">
+        <div>
           {user.user.id == 1 && <AdmPage user={user} />}
         </div>
       

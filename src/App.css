@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  background-image: url('./assets/background2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  animation: fadeIn 1.5s ease-in-out;
+  
 }
 
 .App-logo {
