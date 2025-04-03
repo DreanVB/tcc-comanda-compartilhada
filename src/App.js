@@ -3,7 +3,8 @@ import './App.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
-import RestauranteList from './components/RestauranteList';
+import AdmPage from './components/AdmPage';
+import RestaurantePage from './components/RestaurantePage';
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -48,7 +49,11 @@ function App() {
         console.log(result.id)
         if(result.id==1){
           setUser(result)
-          setCurrentPage('list')
+          setCurrentPage('admpage')
+        }
+        else{
+          setUser(result)
+          setCurrentPage('restaurantepage')
         }
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -68,7 +73,8 @@ function App() {
       {currentPage === "home" && (
         <AuthForm onLogin={handleLogin} />
       )}
-      {currentPage === "list" && <RestauranteList user={user} token={token}/>}
+      {currentPage === "admpage" && <AdmPage user={user} token={token}/>}
+      {currentPage === "restaurantepage" && <RestaurantePage user={user} token={token}/>}
     </div>
   );
 }

@@ -12,6 +12,7 @@
     align-items: center;
     gap: 20px;
     margin-bottom: 30px;
+    
 }
 
 /* Estilo para o ícone ao lado do título */
@@ -159,9 +160,18 @@
   }
   form label{
     justify-content: flex-end;
+    
   }
   .add{
     display:flex;
     justify-content: space-between;
     align-items: flex-end;
-  } 
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+  

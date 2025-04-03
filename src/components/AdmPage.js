@@ -16,7 +16,7 @@ function AdmPage(user) {
   const buscarRestaurantes = () => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${user.user.token}`);
+    myHeaders.append("Authorization", `Bearer ${user.token}`);
 
     const requestOptions = {
       method: "GET",
@@ -202,7 +202,7 @@ function AdmPage(user) {
   
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${user.user.token}`);
+    myHeaders.append("Authorization", `Bearer ${user.token}`);
   
     const body = JSON.stringify({
       nome: nome,
@@ -237,10 +237,10 @@ function AdmPage(user) {
 
 
   return (
-    <div className="container mt-4">
+    <div className="container">
       <h2>Bem-vindo</h2>
-      <p>Nome: {user.user.user.nome}</p>
-      <p>Email: {user.user.user.email}</p>
+      <p>Nome: {user.user.nome}</p>
+      <p>Email: {user.user.email}</p>
       <div className="add">
         <h4 className="mt-4">Restaurantes Cadastrados</h4>
         <button type="button" className="btn btn-sm btn-success" onClick={openAdicionarRestaurante}>+ Adicionar</button>
