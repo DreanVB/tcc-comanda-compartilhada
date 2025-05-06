@@ -1,13 +1,13 @@
 .tela {
     display: flex;
     justify-content: space-around;
+    flex-direction: column
 }
 .panel-container{
     align-items: flex-start;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
