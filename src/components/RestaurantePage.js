@@ -222,7 +222,7 @@ function RestaurantePage(user) {
 
           </div>
         </div>
-        <div className="auth-form-container">
+        {/* <div className="auth-form-container">
           <div className={`panel-rest`}>
             <button type="button" className="btn btn-sm btn-success" >+ Adicionar</button>
             <div className="table-responsive">
@@ -265,7 +265,7 @@ function RestaurantePage(user) {
               </table>
             </div>
           </div>
-        </div>
+        </div> */}
 
       </div>
       {modalType == 'adicionarAba' && (

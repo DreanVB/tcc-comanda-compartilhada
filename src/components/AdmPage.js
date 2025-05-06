@@ -55,7 +55,7 @@ function AdmPage(user) {
 
   const handleInativar = (id) => {
     const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + user.user.token);
+    myHeaders.append("Authorization", "Bearer " + user.token);
 
     const requestOptions = {
       method: "PUT",
@@ -81,7 +81,7 @@ function AdmPage(user) {
 
   const handleAtivar = (id) => {
     const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + user.user.token);
+    myHeaders.append("Authorization", "Bearer " + user.token);
 
     const requestOptions = {
       method: "PUT",
@@ -126,7 +126,7 @@ function AdmPage(user) {
     e.preventDefault();
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${user.user.token}`);
+    myHeaders.append("Authorization", `Bearer ${user.token}`);
 
     const body = JSON.stringify({
       nome: nome,
@@ -164,7 +164,7 @@ function AdmPage(user) {
     e.preventDefault();
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${user.user.token}`);
+    myHeaders.append("Authorization", `Bearer ${user.token}`);
 
     const body = JSON.stringify({
       novaSenha: senha
