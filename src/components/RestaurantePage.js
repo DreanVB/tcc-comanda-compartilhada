@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import AdmPage from "./AdmPage";
 import './RestaurantePage.css'
+import { useNavigate } from 'react-router-dom';
 
-function RestaurantePage(user) {
+function RestaurantePage({user, token}) {
   const [abaList, setAbaList] = useState([]);
   const [nomeAba, setNomeAba] = useState('')
   const [modalType, setModalType] = useState(null);
   const [selectedAba, setSelectedAba] = useState(null)
+  const [itemList, setItemList] = useState([]);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user || !token) {
+      navigate('/login'); // redireciona para a página de login
+    }
+  }, [user, navigate]);
+  
   useEffect(() => {
     buscarCardapio();
   }, []);
@@ -24,8 +34,10 @@ function RestaurantePage(user) {
   };
   const buscarCardapio = () => {
     const myHeaders = new Headers();
+    
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${user.token}`);
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    console.log(user)
 
     const requestOptions = {
       method: "GET",
@@ -57,7 +69,7 @@ function RestaurantePage(user) {
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${user.token}`);
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     const body = JSON.stringify({
       nome: nomeAba,
@@ -94,7 +106,7 @@ function RestaurantePage(user) {
     e.preventDefault();
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${user.token}`);
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     const body = JSON.stringify({
       nome: nomeAba
@@ -131,7 +143,7 @@ function RestaurantePage(user) {
     e.preventDefault();
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${user.token}`);
+    myHeaders.append("Authorization", `Bearer ${token}`);
 
     const body = JSON.stringify({
       nome: nomeAba
@@ -157,9 +169,33 @@ function RestaurantePage(user) {
         console.error("Erro:", error);
         alert("Erro ao apagar aba.");
       });
-
+  }
+  const handleBuscaItem = (idAba) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Accept", "text/plain");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+  
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+  
+    fetch(`/api/RestauranteItemCardapio/aba/${idAba}`, requestOptions)
+      .then((response) => {
+        if (!response.ok) throw new Error(`Erro: ${response.status}`);
+        return response.json();
+      })
+      .then((data) => {
+        setItemList(data);
+        console.log(itemList.length)
+      })
+      .catch((error) => console.error("Erro ao buscar itens da aba:", error));
+  };
+  const handleAdicionarItem = () =>{
 
   }
+  
 
   return (
     <div>
@@ -167,8 +203,8 @@ function RestaurantePage(user) {
 
       <div className="container">
         <h2>Bem-vindo</h2>
-        <p>Nome: {user.user.nome}</p>
-        <p>Email: {user.user.email}</p>
+        <p>Nome: {user.nome}</p>
+        <p>Email: {user.email}</p>
       </div>
       <div className="add">
         <h4 className="mt-4">Cardapio</h4>
@@ -192,7 +228,7 @@ function RestaurantePage(user) {
                   {abaList.map((aba) =>
 
                     <tr key={aba.id}>
-                      <td>{aba.nome}</td>
+                      <td onClick={() =>handleBuscaItem(aba.id)}>{aba.nome}</td>
 
                       <td>
                         <button className="btn btn-sm btn-primary me-2" onClick={() => openEditarAba(aba)} >
@@ -222,7 +258,11 @@ function RestaurantePage(user) {
 
           </div>
         </div>
+<<<<<<< HEAD
         {/* <div className="auth-form-container">
+=======
+        <div className="panel-container">
+>>>>>>> 3a55334602abfa50df40c93397bb3f225a66d335
           <div className={`panel-rest`}>
             <button type="button" className="btn btn-sm btn-success" >+ Adicionar</button>
             <div className="table-responsive">
@@ -234,7 +274,7 @@ function RestaurantePage(user) {
                   </tr>
                 </thead>
                 <tbody>
-                  {abaList.map((aba) =>
+                  {itemList.map((aba) =>
 
                     <tr key={aba.id}>
                       <td>{aba.nome}</td>
@@ -253,10 +293,8 @@ function RestaurantePage(user) {
                         </button>
                       </td>
                     </tr>
-
-
                   )}
-                  {abaList.length === 0 && (
+                  {itemList.length === 0 && (
                     <tr>
                       <td colSpan="5" className="text-center">O cardápio está vazio.</td>
                     </tr>

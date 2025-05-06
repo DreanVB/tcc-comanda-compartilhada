@@ -5,9 +5,13 @@ import React, { useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
 import AdmPage from './components/AdmPage';
 import RestaurantePage from './components/RestaurantePage';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("home");
+  const navigate = useNavigate();
   const [token, setToken] = useState('');
   const [user, setUser] = useState({
     id: '',
@@ -49,11 +53,11 @@ function App() {
         console.log(result.id)
         if(result.id==1){
           setUser(result)
-          setCurrentPage('admpage')
+          navigate("/admpage");
         }
         else{
           setUser(result)
-          setCurrentPage('restaurantepage')
+          navigate("/restaurante");
         }
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -69,12 +73,16 @@ function App() {
   return (
     <div className='App'>
       {notification && <p>{notification}</p>}
-
-      {currentPage === "home" && (
-        <AuthForm onLogin={handleLogin} />
-      )}
-      {currentPage === "admpage" && <AdmPage user={user} token={token}/>}
-      {currentPage === "restaurantepage" && <RestaurantePage user={user} token={token}/>}
+       
+            <div>            
+              <Routes>
+                <Route path="/login" element={<AuthForm onLogin={handleLogin}/>} />
+                <Route path="/admpage" element={<AdmPage user={user} token={token}/>} /> 
+                <Route path="/restaurante" element={<RestaurantePage user={user} token={token}/>} />
+                <Route path="*" element={<AuthForm onLogin={handleLogin} />} />
+              </Routes>
+            </div>
+          
     </div>
   );
 }
