@@ -1,28 +1,11 @@
 import React from 'react';
 import './Navbar.css';
+import OutputIcon from '@mui/icons-material/Output';
+import CategoryIcon from '@mui/icons-material/Category';
 
 // import logo from '../assets/logo2.png';
 
-function Navbar({ onNavigate, user, isAuthenticated }) {
-    // Função para gerar as iniciais do nome do usuário, caso não haja imagem
-    const getUserInitials = () => {
-        if (user && user.name) {
-            const names = user.name.split(' ');
-            const initials = names[0][0] + (names[1] ? names[1][0] : '');
-            return initials.toUpperCase();
-        }
-        return '';
-    };
-    isAuthenticated = true;
-
-    const handleProfileClick = () => {
-        console.log(isAuthenticated)
-        if (isAuthenticated) {
-            onNavigate('profile'); // Acessa o perfil se estiver autenticado
-        } else {
-            onNavigate('auth'); // Redireciona para login/cadastro se não estiver autenticado
-        }
-    };
+function Navbar({ user, token, categoriaSituation, setCategoriaSituation }) {
 
     return (
         <nav className="navbar">
@@ -32,23 +15,36 @@ function Navbar({ onNavigate, user, isAuthenticated }) {
 
             <ul className="nav-links">
                 <li>
-                    <button className="profile-button" onClick={handleProfileClick}>
+                    <button className="profile-button" >
                         {user.image ? (
                             <img src={user.image} alt="Perfil do Usuário" className="profile-image" />
                         ) : (
-                            <span className="profile-initials">{getUserInitials()}</span>
+                            <span className="profile-initials"></span>
                         )}
                     </button>
                 </li>
                 <li>
-                    <button onClick={() => onNavigate('itens')}>Itens</button>
+                    <p>{user.nome}</p>
                 </li>
                 <li>
-                    <button onClick={() => onNavigate('comanda')}>Comanda</button>
+                    <button
+                    onClick={()=>setCategoriaSituation(true)}>
+                        <CategoryIcon/>
+                    </button>
+                
+                    <button>
+                        <OutputIcon />
+                    </button>
+                </li>
+                {/* <li>
+                    <button >Itens</button>
                 </li>
                 <li>
-                    <button onClick={() => onNavigate('CarrinhoList')}>Carrinho</button>
+                    <button >Comanda</button>
                 </li>
+                <li>
+                    <button >Carrinho</button>
+                </li> */}
             </ul>
             <div className="profile-container">
             </div>

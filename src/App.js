@@ -51,11 +51,14 @@ function App() {
         const result = await response.json();
         console.log("🔐 Dados protegidos:", result);
         console.log(result.id)
-        if(result.id==1){
+        localStorage.setItem('user', JSON.stringify(result.id));
+        localStorage.setItem('token', token);
+
+        if (result.id == 1) {
           setUser(result)
           navigate("/admpage");
         }
-        else{
+        else {
           setUser(result)
           navigate("/restaurante");
         }
@@ -73,16 +76,16 @@ function App() {
   return (
     <div className='App'>
       {notification && <p>{notification}</p>}
-       
-            <div>            
-              <Routes>
-                <Route path="/login" element={<AuthForm onLogin={handleLogin}/>} />
-                <Route path="/admpage" element={<AdmPage user={user} token={token}/>} /> 
-                <Route path="/restaurante" element={<RestaurantePage user={user} token={token}/>} />
-                <Route path="*" element={<AuthForm onLogin={handleLogin} />} />
-              </Routes>
-            </div>
-          
+
+      <div>
+        <Routes>
+          <Route path="/login" element={<AuthForm onLogin={handleLogin} />} />
+          <Route path="/admpage" element={<AdmPage user={user} token={token} />} />
+          <Route path="/restaurante" element={<RestaurantePage user={user} token={token} />} />
+          <Route path="*" element={<AuthForm onLogin={handleLogin} />} />
+        </Routes>
+      </div>
+
     </div>
   );
 }

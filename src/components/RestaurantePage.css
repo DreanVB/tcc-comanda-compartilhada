@@ -33,3 +33,13 @@
     opacity: 0;
     animation: slideUp 1.2s ease-out forwards;
   }
+  .abalist{
+    overflow: auto;
+    max-width: 430px;
+  }
+  .tela-rest{
+    padding-top: 15%;
+  }
+  .categorias{
+    
+  }
