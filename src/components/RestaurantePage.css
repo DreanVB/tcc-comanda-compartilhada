@@ -1,45 +1,62 @@
 .tela {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
 }
-.panel-container{
-    align-items: flex-start;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 20px;
-    margin: 0;
-    animation: fadeIn 1.5s ease-in-out;
-    align-items: flex-start;
-  }
-  
-  
-  .panel-rest {
-    display: table-column;
-    width: 600px;
-    max-height: 500px;
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
-    border-radius: 15px;
-    overflow: auto;
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    transform: translateY(50px);
-    opacity: 0;
-    animation: slideUp 1.2s ease-out forwards;
-  }
-  .abalist{
-    overflow: auto;
-    max-width: 430px;
-  }
-  .tela-rest{
-    padding-top: 15%;
-  }
-  .categorias{
-    
-  }
+
+.panel-container {
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  margin: 0;
+  animation: fadeIn 1.5s ease-in-out;
+  align-items: flex-start;
+}
+
+
+.panel-rest {
+  display: table-column;
+  width: 600px;
+  max-height: 500px;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transform: translateY(50px);
+  opacity: 0;
+  animation: slideUp 1.2s ease-out forwards;
+}
+
+.abalist {
+  overflow: auto;
+  max-width: 430px;
+}
+
+.tela-rest {
+  padding-top: 15%;
+}
+
+.itens-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* colunas adaptáveis */
+  gap: 20px;
+  justify-items: center;
+  /* centraliza os cards na célula */
+  padding: 20px;
+
+}
+
+.actions{
+  display: flex;
+  justify-content: space-between
+}
